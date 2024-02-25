@@ -12,6 +12,11 @@ request_weather = weather + "?q=" + city + city_index + api
 
 response = requests.get(request_weather).json()
 temperature_kelvin = response["main"]["temp"]
+humidity = response["main"]["humidity"]
+wind_speed = response["wind"]["speed"]
+
+print(f"Влажность: {humidity}%")
+print(f"Скорость ветра: {wind_speed} м/c")
 
 
 def kelvin_to_celsius(kelvin):
@@ -20,3 +25,12 @@ def kelvin_to_celsius(kelvin):
 
 
 print(kelvin_to_celsius(temperature_kelvin))
+
+
+def kelvin_to_fahrenheit(kelvin):
+    fahrenheit = (kelvin - 273.15) * 9 / 5 + 32
+    return fahrenheit
+
+
+print(f"Температура: {kelvin_to_fahrenheit(temperature_kelvin):.2f}°F")
+
