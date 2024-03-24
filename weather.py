@@ -25,21 +25,30 @@ def show_weather(city):
         messagebox.showerror("Error", "Failed to retrieve weather data.")
 
 
+def make_weather_button(city):
+    def weather_button():
+        show_weather(city)
+
+    return weather_button
+
+
 def load_cities(filename):
     with open(filename, 'r') as file:
         return file.read().splitlines()
 
 
+cities = load_cities("cities.txt")
+
+
 def city_buttons(cities):
     row = 0
     for city in cities:
-        button = ct.CTkButton(master=root, text=city, command=lambda c=city: show_weather(c), corner_radius=10,
-                              width=150, height=40)
+        button = ct.CTkButton(master=root, text=city, command=make_weather_button(city), corner_radius=10,
+                              width=150, height=40, fg_color='black', hover_color='darkgrey')
         button.grid(row=row, column=0, padx=10, pady=5)
         row += 1
 
 
-cities = load_cities("cities.txt")
 city_buttons(cities)
 
 root.mainloop()
